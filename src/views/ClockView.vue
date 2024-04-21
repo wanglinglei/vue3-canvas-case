@@ -6,9 +6,9 @@
 
 <script setup lang='ts'>
 import { useCanvas } from '@/common/hooks/useCanvas';
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 
-
+let timer: null | number = null;
 function renderClock(ctx: CanvasRenderingContext2D) {
   console.log("ctx")
   ctx.clearRect(0, 0, 800, 600)
@@ -92,11 +92,17 @@ function renderClock(ctx: CanvasRenderingContext2D) {
   ctx.restore();
   ctx.restore();
 }
-function render(ctx: CanvasRenderingContext2D) {
-  setInterval(() => {
+function render({ ctx }: { ctx: CanvasRenderingContext2D }) {
+  timer = setInterval(() => {
     renderClock(ctx);
   }, 1000)
 }
+
+onUnmounted(() => {
+  if (timer) {
+    clearInterval(timer);
+  }
+})
 
 useCanvas(render)
 
