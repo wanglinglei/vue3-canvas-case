@@ -25,6 +25,11 @@ const router = createRouter({
       path: '/scratchCard',
       name: 'scratchCard',
       component: () => import('../views/ScratchCard.vue')
+    },
+    {
+      path: '/cliperImage',
+      name: 'cliperImage',
+      component: () => import('../views/CliperImage/CliperIndex.vue')
     }
   ]
 })

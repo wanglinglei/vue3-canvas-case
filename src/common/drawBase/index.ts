@@ -1,17 +1,20 @@
 
 
-interface Options {
+export interface Options {
   canvasId: string;
   width?: number;
   height?: number;
 }
 
 class DrawBase {
-  private ctx: null | CanvasRenderingContext2D = null;
-  private canvas: null | HTMLCanvasElement = null;
+  ctx: null | CanvasRenderingContext2D = null;
+  canvas: null | HTMLCanvasElement = null;
+  private width: number = 0;
+  private height: number = 0;
   constructor(options: Options) {
     const { canvasId } = options;
-    this.getContext(canvasId)
+    this.getContext(canvasId);
+    this.setCanvas(options);
   }
   /**
    * @description: 获取context上下文
@@ -33,9 +36,12 @@ class DrawBase {
    */
   setCanvas(options: Options) {
     const { width, height } = options;
+
     if (!this.canvas) return;
     this.canvas.width = width || this.canvas.width;
     this.canvas.height = height || this.canvas.height;
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
   }
 
 
